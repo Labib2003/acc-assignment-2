@@ -14,3 +14,7 @@ module.exports.getTourByIdService = async (id) => {
     await Tour.updateOne({ _id: id }, { $inc: { views: 1 } });
     return Tour.findById(id);
 }
+
+module.exports.getTopThreeToursService = () => {
+    return Tour.find({}).sort({views: -1}).limit(3);
+}

@@ -8,5 +8,7 @@ router.route("/tours")
     .post(tourController.postNewTour);
 router.route("/tours/:id")
     .get(tourController.getTourById);
+router.route("/tour/trending")
+    .get(tourController.getTopThreeTours);
 
 module.exports = router;

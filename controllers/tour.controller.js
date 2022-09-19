@@ -1,8 +1,8 @@
-const { getToursService, postNewTourService, getTourByIdService } = require("../services/tours.services");
+const { getToursService, postNewTourService, getTourByIdService, getTopThreeToursService } = require("../services/tours.services");
 
 module.exports.getAllTours = async (req, res) => {
     try {
-        const filter = {...req.query};
+        const filter = { ...req.query };
         ["page", "limit", "sort"].forEach(field => delete filter[field]);
         const result = await getToursService(filter);
         res.status(200).json({
@@ -36,6 +36,21 @@ module.exports.getTourById = async (req, res) => {
     try {
         const id = req.params.id;
         const result = await getTourByIdService(id);
+        res.status(200).json({
+            success: true,
+            data: result
+        });
+    } catch (e) {
+        res.status(500).json({
+            success: false,
+            message: e.message
+        })
+    };
+}
+
+module.exports.getTopThreeTours = async (req, res) => {
+    try {
+        const result = await getTopThreeToursService();
         res.status(200).json({
             success: true,
             data: result
