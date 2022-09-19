@@ -1,4 +1,4 @@
-const { getToursService, postNewTourService, getTourByIdService, getTopThreeViewedToursService, getTopThreeCheapestToursService } = require("../services/tours.services");
+const { getToursService, postNewTourService, getTourByIdService, getTopThreeViewedToursService, getTopThreeCheapestToursService, updateATourService } = require("../services/tours.services");
 
 module.exports.getAllTours = async (req, res) => {
     try {
@@ -35,6 +35,23 @@ module.exports.getTourById = async (req, res) => {
     try {
         const id = req.params.id;
         const result = await getTourByIdService(id);
+        res.status(200).json({
+            success: true,
+            data: result
+        });
+    } catch (e) {
+        res.status(500).json({
+            success: false,
+            message: e.message
+        })
+    };
+}
+
+module.exports.updateATour = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const data = req.body;
+        const result = await updateATourService(id, data);
         res.status(200).json({
             success: true,
             data: result

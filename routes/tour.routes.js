@@ -12,4 +12,7 @@ router.route("/tour/trending")
     .get(tourController.getTopThreeViewedTours);
 router.route("/tour/cheapest")
     .get(tourController.getTopThreeCheapestTours);
+router.route("/tour/:id")
+    .patch(tourController.updateATour);
+
 module.exports = router;

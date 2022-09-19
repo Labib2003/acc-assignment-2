@@ -15,7 +15,7 @@ module.exports.getToursService = async (filter) => {
         .select(selection)
         .sort(sorter);
     const count = await Tour.countDocuments();
-    const pageCount = Math.ceil(count/limit);
+    const pageCount = Math.ceil(count / limit);
 
     return { data, pageCount };
 }
@@ -28,6 +28,10 @@ module.exports.postNewTourService = (data) => {
 module.exports.getTourByIdService = async (id) => {
     await Tour.updateOne({ _id: id }, { $inc: { views: 1 } });
     return Tour.findById(id);
+}
+
+module.exports.updateATourService = (id, data) => {
+    return Tour.updateOne({ _id: id }, { $set: data }, { runValidators: true });
 }
 
 module.exports.getTopThreeViewedToursService = () => {
