@@ -1,7 +1,8 @@
 const Tour = require("../models/Tour")
 
-module.exports.getToursService = () => {
-    return Tour.find({});
+module.exports.getToursService = (filter) => {
+    const selection = filter.fields.split(",").join(" ");
+    return Tour.find({}).select(selection).sort({views: -1});
 }
 
 module.exports.postNewTourService = (data) => {

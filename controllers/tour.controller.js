@@ -2,7 +2,9 @@ const { getToursService, postNewTourService, getTourByIdService } = require("../
 
 module.exports.getAllTours = async (req, res) => {
     try {
-        const result = await getToursService();
+        const filter = {...req.query};
+        ["page", "limit", "sort"].forEach(field => delete filter[field]);
+        const result = await getToursService(filter);
         res.status(200).json({
             success: true,
             data: result
