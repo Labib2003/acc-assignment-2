@@ -2,7 +2,7 @@ const Tour = require("../models/Tour")
 
 module.exports.getToursService = (filter) => {
     const selection = filter.fields.split(",").join(" ");
-    return Tour.find({}).select(selection).sort({views: -1});
+    return Tour.find({}).select(selection).sort({ views: -1 });
 }
 
 module.exports.postNewTourService = (data) => {
@@ -15,6 +15,10 @@ module.exports.getTourByIdService = async (id) => {
     return Tour.findById(id);
 }
 
-module.exports.getTopThreeToursService = () => {
-    return Tour.find({}).sort({views: -1}).limit(3);
+module.exports.getTopThreeViewedToursService = () => {
+    return Tour.find({}).sort({ views: -1 }).limit(3);
+}
+
+module.exports.getTopThreeCheapestToursService = () => {
+    return Tour.find({}).sort({ price: 1 }).limit(3);
 }
