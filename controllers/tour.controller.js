@@ -3,7 +3,7 @@ const { getToursService, postNewTourService, getTourByIdService, getTopThreeView
 module.exports.getAllTours = async (req, res) => {
     try {
         const filter = { ...req.query };
-        ["page", "limit", "sort"].forEach(field => delete filter[field]);
+        ["page", "limit"].forEach(field => delete filter[field]);
         const result = await getToursService(filter);
         res.status(200).json({
             success: true,
