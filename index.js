@@ -1,7 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const mongoose = require('mongoose');
-const tourRoutes = require('./routes/tourRoutes');
+const tourRoutes = require('./routes/tour.routes');
 
 const app = express();
 
@@ -9,7 +8,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.use("/api/v1", tourRoutes);
+app.use("/api/v1/", tourRoutes);
 
 app.get("/", (req, res) => {
     res.send("Hello World!");

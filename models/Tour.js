@@ -30,18 +30,4 @@ const tourSchema = mongoose.Schema({
 //model
 const Tour = mongoose.model("Tour", tourSchema);
 
-module.exports.postNewTour = async (req, res) => {
-    try {
-        const tour = new Tour({ ...req.body, views: 0 });
-        const result = await tour.save();
-        res.status(200).json({
-            success: true,
-            data: result
-        });
-    } catch (e) {
-        res.status(500).json({
-            success: false,
-            message: e.message
-        })
-    };
-}
+module.exports = Tour;
