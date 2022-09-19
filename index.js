@@ -11,7 +11,7 @@ app.use(cors());
 app.use("/api/v1/", tourRoutes);
 
 app.get("/", (req, res) => {
-    res.send("Hello World!");
+    res.send("Hello world!");
 });
 
 module.exports = app;
