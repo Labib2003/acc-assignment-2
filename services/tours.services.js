@@ -1,11 +1,23 @@
 const Tour = require("../models/Tour")
 
-module.exports.getToursService = (filter) => {
-    let selection, sorter;
+module.exports.getToursService = async (filter) => {
+    let selection, sorter, page = 1, limit = 10;
     if (filter.fields) selection = filter.fields.split(",").join(" ");
     if (filter.sort) sorter = filter.sort.split(",").join(" ")
-    console.log(selection, sorter)
-    return Tour.find({}).select(selection).sort(sorter);
+    page = +filter.page;
+    limit = +filter.limit;
+    const skip = (page - 1) * limit;
+
+    const data = await Tour
+        .find({})
+        .skip(skip)
+        .limit(limit)
+        .select(selection)
+        .sort(sorter);
+    const count = await Tour.countDocuments();
+    const pageCount = Math.ceil(count/limit);
+
+    return { data, pageCount };
 }
 
 module.exports.postNewTourService = (data) => {

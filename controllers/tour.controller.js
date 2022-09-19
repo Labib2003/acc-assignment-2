@@ -2,12 +2,11 @@ const { getToursService, postNewTourService, getTourByIdService, getTopThreeView
 
 module.exports.getAllTours = async (req, res) => {
     try {
-        const filter = { ...req.query };
-        ["page", "limit"].forEach(field => delete filter[field]);
-        const result = await getToursService(filter);
+        const result = await getToursService(req.query);
         res.status(200).json({
             success: true,
-            data: result
+            pages: result.pageCount,
+            data: result.data
         });
     } catch (e) {
         res.status(500).json({
